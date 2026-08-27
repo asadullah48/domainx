@@ -1,5 +1,7 @@
 import os
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Dict, Any
@@ -23,6 +25,18 @@ app.add_middleware(
 )
 
 router = DomainRouter()
+
+# Static files & Frontend
+STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
+if os.path.exists(STATIC_DIR):
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+@app.get("/")
+def serve_dashboard():
+    index_file = os.path.join(STATIC_DIR, "index.html")
+    if os.path.exists(index_file):
+        return FileResponse(index_file)
+    return {"message": "DomainX Gateway is running. Visit /docs for OpenAPI specifications."}
 
 class UnifiedDomainRequest(BaseModel):
     domain: str = Field(..., json_schema_extra={"example": "legal"})

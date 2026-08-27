@@ -3,6 +3,11 @@ from domainx.server import app
 
 client = TestClient(app)
 
+def test_dashboard_root():
+    res = client.get("/")
+    assert res.status_code == 200
+    assert "DomainX" in res.text
+
 def test_healthz():
     res = client.get("/healthz")
     assert res.status_code == 200

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DomainX - Specialized Multi-Agent Framework Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-badge">DOMAIN·X</div>
+        <div class="brand-text">
+          <h1 class="brand-title" id="txt-brand-title">DomainX Studio</h1>
+          <p class="brand-subtitle" id="txt-brand-sub">Specialized Vertical Multi-Agent Framework (Legal • Medical • Supply Chain)</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="live-pill">
+          <span class="pulse-dot"></span>
+          <span id="txt-status-pill">Gateway Active (Port 8002)</span>
+        </div>
+        <button id="lang-toggle-btn" class="btn btn-secondary btn-sm" onclick="toggleLanguage()">
+          <span id="lang-btn-text">🌐 العربية</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    
+    <!-- Hero / KPI Row -->
+    <section class="kpi-grid">
+      <div class="kpi-card glass-panel">
+        <div class="kpi-icon">⚖️</div>
+        <div class="kpi-meta">
+          <span class="kpi-label" id="lbl-kpi-legal">Legal Intelligence</span>
+          <h3 class="kpi-val">99.4% Precision</h3>
+          <span class="kpi-sub">80% Time Reduction • Redlines</span>
+        </div>
+      </div>
+      <div class="kpi-card glass-panel">
+        <div class="kpi-icon">🏥</div>
+        <div class="kpi-meta">
+          <span class="kpi-label" id="lbl-kpi-medical">Clinical Coding & HIPAA</span>
+          <h3 class="kpi-val">99.2% Accuracy</h3>
+          <span class="kpi-sub">100% PHI Scrub • ICD-10/CPT</span>
+        </div>
+      </div>
+      <div class="kpi-card glass-panel">
+        <div class="kpi-icon">📦</div>
+        <div class="kpi-meta">
+          <span class="kpi-label" id="lbl-kpi-sc">Supply Chain Optimization</span>
+          <h3 class="kpi-val">22% Cost Savings</h3>
+          <span class="kpi-sub">EOQ • ROP • Scope 1-3 ESG</span>
+        </div>
+      </div>
+      <div class="kpi-card glass-panel">
+        <div class="kpi-icon">🎯</div>
+        <div class="kpi-meta">
+          <span class="kpi-label" id="lbl-kpi-hallucination">Hallucination Rate</span>
+          <h3 class="kpi-val">&lt; 0.1% Zero Guesswork</h3>
+          <span class="kpi-sub">Deterministic Rules & Ontologies</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-nav glass-panel">
+      <button class="tab-btn active" onclick="switchTab('legal')" id="tab-btn-legal">⚖️ Legal Studio</button>
+      <button class="tab-btn" onclick="switchTab('medical')" id="tab-btn-medical">🏥 Medical & HIPAA Studio</button>
+      <button class="tab-btn" onclick="switchTab('supplychain')" id="tab-btn-supplychain">📦 Supply Chain Simulator</button>
+      <button class="tab-btn" onclick="switchTab('router')" id="tab-btn-router">🔀 Unified Router Console</button>
+    </div>
+
+    <!-- TAB 1: Legal Studio -->
+    <section id="tab-legal" class="tab-pane active">
+      <div class="workspace-grid">
+        <div class="panel glass-panel">
+          <div class="panel-header">
+            <h2 class="panel-title" id="txt-legal-title">⚖️ Legal Contract Review & Redlining</h2>
+            <span class="badge badge-purple">LegalAgent v1.0</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" id="lbl-contract-title">Contract Title</label>
+            <input type="text" id="legal-title-input" class="form-control" value="Master SaaS Subscription Agreement 2026" />
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label" id="lbl-contract-type">Agreement Type</label>
+              <select id="legal-type-select" class="form-control">
+                <option value="MSA">MSA (Master Services Agreement)</option>
+                <option value="NDA">NDA (Non-Disclosure Agreement)</option>
+                <option value="SLA">SLA (Service Level Agreement)</option>
+                <option value="DPA">DPA (Data Processing Agreement)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" id="lbl-jurisdiction">Governing Jurisdiction</label>
+              <select id="legal-jurisdiction-select" class="form-control">
+                <option value="US_DELAWARE">US - Delaware (DGCL Standards)</option>
+                <option value="US_NEW_YORK">US - New York (Commercial Division)</option>
+                <option value="UK_ENGLAND_WALES">UK - England & Wales (Common Law)</option>
+                <option value="EU_GDPR">EU - General Data Protection Regulation</option>
+                <option value="UAE_DIFC">UAE - Dubai International Financial Centre</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" id="lbl-contract-text">Contract Clauses & Text</label>
+            <textarea id="legal-text-input" class="form-control" rows="6">This Agreement contains a limitation of liability capped at the fees paid in the preceding twelve (12) months. Mutual indemnification for confidentiality and IP breach. Either party may terminate for convenience upon thirty (30) days written notice.</textarea>
+          </div>
+
+          <div class="sample-pills">
+            <span class="pill-label">Presets:</span>
+            <button class="pill-btn" onclick="loadLegalPreset('balanced')">Commercially Balanced</button>
+            <button class="pill-btn danger" onclick="loadLegalPreset('risky')">Critical Risk (Uncapped Liability)</button>
+          </div>
+
+          <button class="btn btn-primary btn-block mt-3" onclick="executeLegalAudit()">
+            <span id="txt-legal-btn">🔍 Audit Contract & Generate Redlines</span>
+          </button>
+        </div>
+
+        <div class="panel glass-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">📊 Contract Risk Audit Report</h2>
+            <span id="legal-risk-badge" class="badge badge-green">Ready</span>
+          </div>
+          <div id="legal-output-box" class="output-preview">
+            <div class="empty-state">
+              <div class="empty-icon">⚖️</div>
+              <p>Submit a contract to inspect clause-by-clause risk scoring, liability caps, and suggested redlines.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: Medical & HIPAA Studio -->
+    <section id="tab-medical" class="tab-pane">
+      <div class="workspace-grid">
+        <div class="panel glass-panel">
+          <div class="panel-header">
+            <h2 class="panel-title" id="txt-med-title">🏥 Clinical Coding & HIPAA Safe Harbor</h2>
+            <span class="badge badge-cyan">MedicalAgent v1.0</span>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">Encounter ID</label>
+              <input type="text" id="med-enc-id" class="form-control" value="ENC-2026-9812" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Patient Demographics</label>
+              <input type="text" id="med-demo" class="form-control" value="58-year-old Female" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" id="lbl-clinical-notes">Clinical Encounter Notes (Unstructured)</label>
+            <textarea id="med-notes-input" class="form-control" rows="5">Patient: Jane Doe, DOB: 04/12/1966, SSN: 998-11-2233.
+Assessment: 58-year-old female with uncontrolled type 2 diabetes and essential hypertension.
+Ordered routine ECG and office visit for medication adjustment.</textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Active Prescribed Medications</label>
+            <input type="text" id="med-drugs-input" class="form-control" value="Metformin 1000mg, Lisinopril 20mg, Warfarin 5mg, Aspirin 81mg" />
+          </div>
+
+          <div class="sample-pills">
+            <span class="pill-label">Presets:</span>
+            <button class="pill-btn" onclick="loadMedicalPreset('diabetes')">Diabetes + Hypertension</button>
+            <button class="pill-btn danger" onclick="loadMedicalPreset('lethal')">Drug Contraindication Hazard</button>
+          </div>
+
+          <button class="btn btn-primary btn-block mt-3" onclick="executeMedicalAudit()">
+            <span id="txt-med-btn">🧪 Scrub PHI & Extract Diagnostic/CPT Codes</span>
+          </button>
+        </div>
+
+        <div class="panel glass-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">📋 HIPAA Safe Harbor & Clinical Telemetry</h2>
+            <span id="med-badge" class="badge badge-green">Ready</span>
+          </div>
+          <div id="med-output-box" class="output-preview">
+            <div class="empty-state">
+              <div class="empty-icon">🩺</div>
+              <p>Process clinical notes to view 18-point HIPAA PHI redactions, ICD-10-CM / CPT codes, and drug contraindication alerts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: Supply Chain Simulator -->
+    <section id="tab-supplychain" class="tab-pane">
+      <div class="workspace-grid">
+        <div class="panel glass-panel">
+          <div class="panel-header">
+            <h2 class="panel-title" id="txt-sc-title">📦 Inventory Optimization & Disruption Simulator</h2>
+            <span class="badge badge-green">SupplyChainAgent v1.0</span>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label">Facility / Distribution Center</label>
+              <input type="text" id="sc-facility" class="form-control" value="DC-CHICAGO-CENTRAL-01" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">SKU Identifier</label>
+              <input type="text" id="sc-skuid" class="form-control" value="SKU-MICROPROCESSOR-A1" />
+            </div>
+          </div>
+
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="form-label">Annual Demand ($D$)</label>
+              <input type="number" id="sc-demand" class="form-control" value="12000" oninput="calculateLiveSCPreview()" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Order Setup Cost ($S$)</label>
+              <input type="number" id="sc-ordercost" class="form-control" value="85" oninput="calculateLiveSCPreview()" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Holding Cost/Unit ($H$)</label>
+              <input type="number" id="sc-holdingcost" class="form-control" value="6.5" oninput="calculateLiveSCPreview()" />
+            </div>
+          </div>
+
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="form-label">Lead Time (Days)</label>
+              <input type="number" id="sc-leadtime" class="form-control" value="14" oninput="calculateLiveSCPreview()" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Daily Demand Std Dev</label>
+              <input type="number" id="sc-stddev" class="form-control" value="4.5" oninput="calculateLiveSCPreview()" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Service Level Target</label>
+              <select id="sc-servicelevel" class="form-control" onchange="calculateLiveSCPreview()">
+                <option value="95.0">95.0% ($Z = 1.645$)</option>
+                <option value="98.0">98.0% ($Z = 2.05$)</option>
+                <option value="99.0">99.0% ($Z = 2.33$)</option>
+                <option value="99.9">99.9% ($Z = 3.09$)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Transportation Mode</label>
+            <select id="sc-transport" class="form-control">
+              <option value="ROAD_FREIGHT">Road Freight (62 g CO2/tonne-km)</option>
+              <option value="RAIL_FREIGHT">Rail Freight (22 g CO2/tonne-km)</option>
+              <option value="AIR_FREIGHT">Air Freight (500 g CO2/tonne-km)</option>
+              <option value="MARITIME">Maritime Shipping (10 g CO2/tonne-km)</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary btn-block mt-3" onclick="executeSupplyChainAudit()">
+            <span id="txt-sc-btn">🚀 Optimize Inventory & Disruption Model</span>
+          </button>
+        </div>
+
+        <div class="panel glass-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">📈 Optimal Replenishment Matrix</h2>
+            <span id="sc-badge" class="badge badge-cyan">Deterministic Math</span>
+          </div>
+          <div id="sc-output-box" class="output-preview">
+            <div class="empty-state">
+              <div class="empty-icon">📊</div>
+              <p>Adjust the inventory parameters on the left to simulate EOQ, Safety Stocks, Reorder Points, and Scope 1-3 Carbon Analytics.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: Unified Router Console -->
+    <section id="tab-router" class="tab-pane">
+      <div class="workspace-grid">
+        <div class="panel glass-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">🔀 DomainX Unified Classifier & Router</h2>
+            <span class="badge badge-purple">Dynamic Domain Dispatch</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Target Domain Intent</label>
+            <select id="router-domain-select" class="form-control">
+              <option value="legal">Legal (Contracts & Redlines)</option>
+              <option value="medical">Medical (Clinical Coding & HIPAA)</option>
+              <option value="supply_chain">Supply Chain (EOQ & Disruption)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">JSON Payload</label>
+            <textarea id="router-payload-input" class="form-control" rows="8">{"contract_title": "Enterprise NDA", "contract_text": "Mutual confidentiality with limitation of liability."}</textarea>
+          </div>
+
+          <button class="btn btn-primary btn-block" onclick="executeRouterDispatch()">
+            <span>⚡ Dispatch via Intelligent Router</span>
+          </button>
+        </div>
+
+        <div class="panel glass-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">📡 Router Execution Trace</h2>
+            <span id="router-badge" class="badge badge-green">Ready</span>
+          </div>
+          <div id="router-output-box" class="output-preview">
+            <div class="empty-state">
+              <div class="empty-icon">🔀</div>
+              <p>Execute unified requests to observe autonomous domain routing and expert agent response telemetry.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>DomainX™ • Specialized Vertical Multi-Agent Framework • 100% Deterministic Rule Guardrails</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

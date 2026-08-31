@@ -1,12 +1,14 @@
 # ⚡ منصة DomainX: إطار عمل الوكلاء الأذكياء المتخصصين في القطاعات المعقدة
 
 [![الإصدار](https://img.shields.io/badge/version-1.0.0-blue.svg)](pyproject.toml)
-[![الترخيص](https://img.shields.io/badge/license-Commercial%20%2F%20Apache--2.0-green.svg)](LICENSE)
+[![الترخيص](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)
 [![بايثون](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](pyproject.toml)
-[![الاختبارات](https://img.shields.io/badge/tests-15%20passed-success)](tests/)
+[![الاختبارات](https://img.shields.io/badge/tests-24%20passed-success)](tests/)
 [![دقة التخصص](https://img.shields.io/badge/Precision-99.4%25%20vs%20Generalist%20LLMs-purple)](domainx/manifest.yaml)
 
-**DomainX** هي منصة متطورة للوكلاء الأذكياء متعددي التخصصات مصممة خصيصاً للقطاعات الحساسة والمعقدة (**القطاع القانوني، القطاع الطبي والرعاية الصحية، وسلاسل الإمداد والخدمات اللوجستية**). تتفوق المنصة على نماذج الذكاء الاصطناعي العامة عبر دمج محركات القواعد القطعية والمراجع المعرفية الصارمة، مما يضمن دقة متناهية وانعداماً تاماً لمخاطر الهلوسة والامتثال.
+**DomainX** هي منصة متطورة للوكلاء الأذكياء متعددي التخصصات مصممة خصيصاً للقطاعات الحساسة والمعقدة (**القطاع القانوني، القطاع الطبي والرعاية الصحية، وسلاسل الإمداد والخدمات اللوجستية**). تتفوق المنصة على نماذج الذكاء الاصطناعي العامة عبر دمج محركات القواعد القطعية والمراجع المعرفية الصارمة، مما يضمن دقة متناهية وانعداماً تاماً لمخاطر الهلوسة والامتثال. تتوفر أيضاً طبقة سردية اختيارية تشرح النتائج بلغة واضحة عبر نموذج لغوي محلي مجاني ([Ollama](https://ollama.com))، مع رجوع تلقائي لقالب حتمي إن تعذر الوصول إليه.
+
+**🚀 [التجربة الحية / Live Demo](https://domainx.vercel.app)** — جرّب الوكلاء الثلاثة والملخص الذكي مباشرة من المتصفح دون أي تثبيت. للمزيد راجع النسخة الإنجليزية الكاملة: [`README.md`](README.md#-ai-executive-summary-free-tier-llm-via-ollama).
 
 ---
 
@@ -127,6 +129,7 @@ helm install domainx ./helm -n domainx --create-namespace
 - `POST /api/v1/medical/code-encounter` - الترميز الطبي وتطهير البيانات وفق معايير HIPAA
 - `POST /api/v1/supply-chain/optimize-inventory` - تحسين كميات الطلب ومخزون الأمان والتحليل اللوجستي
 - `POST /api/v1/domainx/analyze` - التوجيه الذكي الموحد حسب القطاع
+- `POST /api/v1/ai/summarize` - ملخص تنفيذي بلغة واضحة عبر نموذج Ollama المحلي المجاني، مع رجوع تلقائي لقالب حتمي إن تعذر الوصول إليه (التفاصيل في [`README.md`](README.md#-ai-executive-summary-free-tier-llm-via-ollama)).
 
 ---
 
@@ -138,20 +141,22 @@ pytest tests/ -v
 ```
 نتيجة الاختبار:
 ```
-tests/test_legal_agent.py::test_legal_contract_review_standard PASSED    [  6%]
-tests/test_legal_agent.py::test_legal_contract_critical_risk PASSED      [ 13%]
-tests/test_medical_agent.py::test_medical_coding_and_hipaa PASSED        [ 20%]
-tests/test_medical_agent.py::test_drug_interaction_detection PASSED      [ 26%]
-tests/test_router.py::test_router_legal PASSED                           [ 33%]
-tests/test_router.py::test_router_medical PASSED                         [ 40%]
-tests/test_router.py::test_router_supply_chain PASSED                    [ 46%]
-tests/test_router.py::test_router_unknown PASSED                         [ 53%]
-tests/test_server.py::test_healthz PASSED                                [ 60%]
-tests/test_server.py::test_readyz PASSED                                 [ 66%]
-tests/test_server.py::test_domains_list PASSED                           [ 73%]
-tests/test_server.py::test_api_legal PASSED                              [ 80%]
-tests/test_server.py::test_api_medical PASSED                            [ 86%]
-tests/test_server.py::test_api_supply_chain PASSED                       [ 93%]
-tests/test_supply_chain_agent.py::test_inventory_eoq_and_disruption PASSED [100%]
-============================= 15 passed in 0.67s ==============================
+tests/test_legal_agent.py::test_legal_contract_review_standard PASSED    [  4%]
+tests/test_legal_agent.py::test_legal_contract_critical_risk PASSED      [  8%]
+tests/test_medical_agent.py::test_medical_coding_and_hipaa PASSED        [ 12%]
+tests/test_medical_agent.py::test_drug_interaction_detection PASSED      [ 16%]
+tests/test_router.py::test_router_legal PASSED                           [ 20%]
+tests/test_router.py::test_router_medical PASSED                         [ 25%]
+tests/test_router.py::test_router_supply_chain PASSED                    [ 29%]
+tests/test_router.py::test_router_unknown PASSED                         [ 33%]
+tests/test_server.py::test_dashboard_root PASSED                         [ 37%]
+tests/test_server.py::test_healthz PASSED                                [ 41%]
+tests/test_server.py::test_readyz PASSED                                 [ 45%]
+tests/test_server.py::test_domains_list PASSED                           [ 50%]
+tests/test_server.py::test_api_legal PASSED                              [ 54%]
+tests/test_server.py::test_api_medical PASSED                            [ 58%]
+tests/test_server.py::test_api_supply_chain PASSED                       [ 62%]
+tests/test_supply_chain_agent.py::test_inventory_eoq_and_disruption PASSED [ 66%]
+tests/test_ai_summary.py (8 اختبارات لطبقة الملخص الذكي وآلية الرجوع التلقائي) PASSED [100%]
+============================= 24 passed in 0.84s ==============================
 ```

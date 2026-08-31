@@ -2,6 +2,52 @@
 
 let currentLang = 'en';
 
+// Escapes text pulled from an API response before it is dropped into innerHTML.
+// The AI summary can echo back user-submitted contract/clinical text (verbatim,
+// via the LLM or the fallback templates), so it is untrusted for HTML purposes.
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = String(str);
+  return div.innerHTML;
+}
+
+// AI Executive Summary: narrates a deterministic agent result via the free-tier
+// Ollama endpoint (with automatic template fallback server-side if unreachable).
+async function renderAiSummary(boxId, domain, data) {
+  const box = document.getElementById(boxId);
+  if (!box) return;
+  box.hidden = false;
+  box.innerHTML = `
+    <div class="ai-summary-header">
+      <span class="ai-summary-title">🧠 AI Executive Briefing</span>
+      <span class="ai-summary-source">generating…</span>
+    </div>
+    <p class="ai-summary-text">Narrating this result…</p>
+  `;
+  try {
+    const res = await fetch('/api/v1/ai/summarize', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ domain, data })
+    });
+    const result = await res.json();
+    box.innerHTML = `
+      <div class="ai-summary-header">
+        <span class="ai-summary-title">🧠 AI Executive Briefing</span>
+        <span class="ai-summary-source">${escapeHtml(result.source || 'unknown')}</span>
+      </div>
+      <p class="ai-summary-text">${escapeHtml(result.summary || 'No summary available.')}</p>
+    `;
+  } catch (err) {
+    box.innerHTML = `
+      <div class="ai-summary-header">
+        <span class="ai-summary-title">🧠 AI Executive Briefing</span>
+      </div>
+      <p class="ai-summary-text">Unavailable: ${escapeHtml(err.message)}</p>
+    `;
+  }
+}
+
 const i18n = {
   en: {
     brandTitle: "DomainX Studio",
@@ -167,6 +213,7 @@ async function executeLegalAudit() {
       <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem;">Clause-by-Clause Findings:</h4>
       ${clausesHtml}
     `;
+    renderAiSummary('legal-ai-box', 'legal', data);
   } catch (err) {
     box.innerHTML = `<div class="code-box" style="color:var(--accent-rose);">Error: ${err.message}</div>`;
   }
@@ -246,6 +293,7 @@ async function executeMedicalAudit() {
         </div>
       ` : `<p style="color:#6ee7b7; font-size:0.85rem;">✅ No high-risk drug-drug contraindications detected.</p>`}
     `;
+    renderAiSummary('med-ai-box', 'medical', data);
   } catch (err) {
     box.innerHTML = `<div class="code-box" style="color:var(--accent-rose);">Error: ${err.message}</div>`;
   }
@@ -349,6 +397,7 @@ async function executeSupplyChainAudit() {
         <p style="font-size:0.84rem; color:#bae6fd;">Disruption Risk Index: <strong>${dis.overall_disruption_risk_index}/100 (${dis.risk_level})</strong></p>
       </div>
     `;
+    renderAiSummary('sc-ai-box', 'supply_chain', data);
   } catch (err) {
     box.innerHTML = `<div class="code-box" style="color:var(--accent-rose);">Error: ${err.message}</div>`;
   }

@@ -9,6 +9,7 @@ from domainx.orchestration.router import DomainRouter
 from domainx.legal.models import ContractReviewRequest
 from domainx.medical.models import ClinicalEncounterRequest
 from domainx.supply_chain.models import InventoryOptimizationRequest
+from domainx.ai.summarizer import ExecutiveSummaryEngine
 
 app = FastAPI(
     title="DomainX Specialized Agent Framework Gateway",
@@ -41,6 +42,10 @@ def serve_dashboard():
 class UnifiedDomainRequest(BaseModel):
     domain: str = Field(..., json_schema_extra={"example": "legal"})
     payload: Dict[str, Any]
+
+class AISummaryRequest(BaseModel):
+    domain: str = Field(..., json_schema_extra={"example": "legal"})
+    data: Dict[str, Any] = Field(..., description="A deterministic agent response to narrate.")
 
 @app.get("/healthz")
 def healthz():
@@ -78,3 +83,14 @@ def unified_analyze(req: UnifiedDomainRequest):
     if result.get("status") == "ERROR_UNKNOWN_DOMAIN":
         raise HTTPException(status_code=400, detail=result["message"])
     return result
+
+@app.post("/api/v1/ai/summarize")
+def ai_summarize(req: AISummaryRequest):
+    """
+    Narrates a deterministic agent result as a short executive briefing.
+    Uses a free-tier local Ollama model when reachable (set OLLAMA_HOST /
+    OLLAMA_MODEL), otherwise degrades to a deterministic template so the
+    endpoint never fails just because no LLM is running.
+    """
+    result = ExecutiveSummaryEngine.summarize(req.domain, req.data)
+    return {"domain": req.domain, **result}
